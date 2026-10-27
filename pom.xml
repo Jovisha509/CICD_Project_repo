@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>mvn-project</artifactId>
+    <artifactId>iot-application</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
