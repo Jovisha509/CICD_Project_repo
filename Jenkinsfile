@@ -21,30 +21,31 @@ pipeline {
             }
         }
 
-        // stage('SonarQube Analysis') {
-        //     steps {
-        //         withSonarQubeEnv('SonarQube') {
-        //             sh '''
-        //                 mvn sonar:sonar \
-        //                 -Dsonar.projectKey=iot-application \
-        //                 -Dsonar.projectName=iot-application
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh '''
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=iot-application \
+                        -Dsonar.projectName=iot-application
+                    '''
+                }
+            }
+        }
 
-        // stage('Quality Gate') {
-        //     steps {
-        //         timeout(time: 5, unit: 'MINUTES') {
-        //             waitForQualityGate abortPipeline: true
-        //         }
-        //     }
-        // }
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 5, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
 
         stage('Docker Build') {
             steps {
                 sh '''
                     docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} .
+                    docker images
                 '''
             }
         }
@@ -76,8 +77,7 @@ pipeline {
                     docker stop iot-application || true
                     docker rm iot-application || true
 
-                    docker run -d \
-                    --name iot-application \
+                    docker run --name iot-application \
                     ${DOCKER_IMAGE}:${DOCKER_TAG}
                 '''
             }
@@ -86,11 +86,11 @@ pipeline {
 
     post {
         success {
-            echo 'CI/CD pipeline completed successfully!'
+            echo 'IoT CI/CD pipeline completed successfully!'
         }
 
         failure {
-            echo 'CI/CD pipeline failed!'
+            echo 'IoT CI/CD pipeline failed!'
         }
     }
 }
