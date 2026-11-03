@@ -9,7 +9,7 @@ public class main {
         System.out.println("===== IoT Application =====");
         System.out.println("Device: " + deviceName);
         System.out.println("Temperature: " + temperature + " C");
-        //System.out.println("Battery: " + battery + "%");
+        System.out.println("Battery: " + battery + "%");
 
         if (temperature > 35.0) {
             System.out.println("WARNING: High temperature!");
