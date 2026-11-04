@@ -3,7 +3,7 @@ public class main {
     public static void main(String[] args) {
 
         String deviceName = "Temperature Sensor";
-        double temperature = 28.5;
+        double temperature = 38.5;
         int battery = 85;
 
         System.out.println("===== IoT Application =====");
